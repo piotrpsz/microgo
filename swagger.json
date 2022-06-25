@@ -1,0 +1,24 @@
+{
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "appplication/json"
+  ],
+  "schemes": [
+    "https"
+  ],
+  "swagger": "2.0",
+  "info": {
+    "description": "This is example of microservice.\nThe example shows CRUD operations with REST-api.",
+    "title": "Mend API",
+    "contact": {
+      "name": "Piotr Pszczółkowski",
+      "url": "http://beesoft.pl",
+      "email": "piotr@beesoft.pl"
+    }
+  },
+  "host": "localhost:12345",
+  "basePath": "/",
+  "paths": {}
+}
