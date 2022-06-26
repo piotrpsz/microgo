@@ -19,17 +19,15 @@ All data of the microservice are located in user home directory in subdirectory 
 `cd .mend`    
 
 In this directory will be located log file of the microservice.  
-And certificates used on TLS.
 
 ### Create TLS certificate
-Certificates will be in subdirectory '**cert**'.  
+Certificates will be in home user directory in subdirectory '**cert**'.  
 Inside this directory we will create two files:
 - **localhost.crt** - self-signed-certificate
 - **localhost.key** - private key  
 
 Creation command:  
 `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert/localhost.key -out cert/localhost.crt`  
-
 
 # Docker - how to use mend as docker container
 Firstly you must install docker on your computer.  
