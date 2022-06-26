@@ -73,3 +73,7 @@ func GetWithID(id tp.ID) (tp.Row, error) {
 func DeleteFromDatabase(id tp.ID) error {
 	return db.Db().Delete("user", id)
 }
+
+func Reset() {
+	db.Db().Reset()
+}

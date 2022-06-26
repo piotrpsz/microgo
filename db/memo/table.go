@@ -22,6 +22,14 @@ func NewTable() *memoryTable {
 	}
 }
 
+func (t *memoryTable) reset() {
+	t.Lock()
+	defer t.Unlock()
+
+	t.data = list.New()
+	t.index = make(map[tp.ID]*list.Element)
+}
+
 func (t *memoryTable) getAll() []tp.Row {
 	t.Lock()
 	defer t.Unlock()

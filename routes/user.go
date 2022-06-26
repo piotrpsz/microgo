@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"fmt"
 	"net/http"
 	"strconv"
 
@@ -71,7 +70,6 @@ func get() gin.HandlerFunc {
 //      description: wszystko dobrze
 func add() gin.HandlerFunc {
 	return func(c *gin.Context) {
-		fmt.Println("------------------- add -----------------")
 		var u user.User
 
 		if err := c.BindJSON(&u); err != nil {

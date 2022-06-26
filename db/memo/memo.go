@@ -70,3 +70,9 @@ func (m *InMemory) Delete(tblName tp.TableName, id tp.ID) error {
 	}
 	return fmt.Errorf("table '%s' not found", tblName)
 }
+
+func (m *InMemory) Reset() {
+	if table, ok := m.tables["user"]; ok {
+		table.reset()
+	}
+}

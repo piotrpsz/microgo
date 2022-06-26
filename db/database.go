@@ -20,6 +20,7 @@ type Engine interface {
 	Update(tp.TableName, tp.Row) error
 	Delete(tp.TableName, tp.ID) error
 	Count(tp.TableName) int64
+	Reset()
 }
 
 var (
