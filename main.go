@@ -18,6 +18,7 @@ package main
 
 import (
 	"context"
+	"net"
 	"os"
 	"os/signal"
 	"syscall"
@@ -31,14 +32,6 @@ import (
 )
 
 func main() {
-	// u := model.NewUser()
-	// u.ID = 1
-	// u.FisrtName = "Piotr"
-	// u.LastName = "Pszczółkowski"
-	// u.Age = 100
-	// fmt.Println(u)
-	// return
-
 	db.Use(db.InMemory)
 
 	if src.Config().Gin.ReleaseMode {
@@ -65,7 +58,11 @@ func main() {
 	defer cancel()
 
 	go func() {
-		if err := router.RunTLS(":12345", "/Users/piotr/.mend/cert/localhost.crt", "/Users/piotr/.mend/cert/localhost.key"); err != nil {
+		dir, _ := os.Getwd()
+		address := ipAddress() + ":8010"
+		log.Infof("Server starts on %v", address)
+
+		if err := router.RunTLS(address, dir+"/cert/localhost.crt", dir+"/cert/localhost.key"); err != nil {
 			log.Error(err)
 			cancel()
 		}
@@ -74,6 +71,17 @@ func main() {
 	<-ctx.Done()
 	cancel()
 	log.Info("shutdown the server....")
+}
+
+func ipAddress() string {
+	hostname, _ := os.Hostname()
+	addresses, _ := net.LookupIP(hostname)
+	for _, ip := range addresses {
+		if ip.To4() != nil && !ip.IsLoopback() {
+			return ip.String()
+		}
+	}
+	return ""
 }
 
 func logFileHandle() (*os.File, error) {

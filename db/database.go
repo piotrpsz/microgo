@@ -19,6 +19,7 @@ type Engine interface {
 	Add(tp.TableName, tp.Row) (int64, error)
 	Update(tp.TableName, tp.Row) error
 	Delete(tp.TableName, tp.ID) error
+	Count(tp.TableName) int64
 }
 
 var (

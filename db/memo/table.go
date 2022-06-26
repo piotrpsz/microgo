@@ -88,6 +88,9 @@ func (t *memoryTable) delete(id tp.ID) error {
 	return nil
 }
 
-func (t *memoryTable) nextID() int64 {
-	return t.maxID + 1
+func (t *memoryTable) count() int64 {
+	t.Lock()
+	defer t.Unlock()
+
+	return int64(len(t.index))
 }

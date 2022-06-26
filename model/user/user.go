@@ -40,6 +40,10 @@ func (u *User) asRow() tp.Row {
 	}
 }
 
+func Count() int64 {
+	return db.Db().Count("user")
+}
+
 // AddToDatabase adds the user to database.
 func (u *User) AddToDatabase() error {
 	if u.ID > 0 {

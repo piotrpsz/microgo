@@ -22,6 +22,14 @@ func NewInMemory() *InMemory {
 	}
 }
 
+func (m *InMemory) Count(tblName tp.TableName) int64 {
+	if table, ok := m.tables[tblName]; ok {
+		return table.count()
+	}
+	return -1
+
+}
+
 // GetAll returns all rows from table.
 func (m *InMemory) GetAll(tblName tp.TableName) ([]tp.Row, error) {
 	if table, ok := m.tables[tblName]; ok {

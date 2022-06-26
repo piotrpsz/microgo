@@ -1,11 +1,11 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
 	"github.com/gin-gonic/gin"
-	log "github.com/sirupsen/logrus"
 	"mend/db/tp"
 	"mend/model/user"
 )
@@ -14,6 +14,7 @@ import (
 func userSetup(router *gin.Engine) {
 	group := router.Group("/user")
 	{
+		group.GET("count", count())
 		group.GET("", getAll())
 		group.GET(":id", get())
 		group.POST("", add())
@@ -22,14 +23,13 @@ func userSetup(router *gin.Engine) {
 	}
 }
 
-// swagger:operation GET
-// Returns all users from database
-// ---
-// Produces:
-// - application/json
-// Responses:
-//  '200':
-//      description: wszystko dobrze
+func count() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		n := user.Count()
+		c.JSON(http.StatusOK, gin.H{"count": n})
+	}
+}
+
 func getAll() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		rows, err := user.GetAll()
@@ -71,6 +71,7 @@ func get() gin.HandlerFunc {
 //      description: wszystko dobrze
 func add() gin.HandlerFunc {
 	return func(c *gin.Context) {
+		fmt.Println("------------------- add -----------------")
 		var u user.User
 
 		if err := c.BindJSON(&u); err != nil {
@@ -124,7 +125,6 @@ func remove() gin.HandlerFunc {
 			return
 		}
 
-		log.Infof("remove item %v", id)
 		c.JSON(http.StatusOK, "ok")
 	}
 }
