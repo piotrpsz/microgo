@@ -25,6 +25,7 @@ var (
 func setup() {
 	if router == nil {
 		db.Use(db.InMemory)
+
 		// sets gin to test mode
 		gin.SetMode(gin.TestMode)
 

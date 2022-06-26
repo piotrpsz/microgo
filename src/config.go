@@ -78,6 +78,9 @@ func (c *Configuration) String() string {
 	return string(data)
 }
 
+// LogFilePath returns comple path to log file.
+// When is needed directory components are created.
+// WARNING: log file is for only one session (old file id deleted).
 func (c *Configuration) LogFilePath() (string, error) {
 	if c.Logger.RootDirName == "" {
 		dir, err := os.UserHomeDir()
@@ -96,6 +99,10 @@ func (c *Configuration) LogFilePath() (string, error) {
 	}
 
 	fpath = filepath.Join(fpath, c.Logger.FileName)
+
+	// delete previous instance of the log file
+	// (if exists)
 	_ = os.Remove(fpath)
+
 	return fpath, nil
 }

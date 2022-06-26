@@ -1,0 +1,8 @@
+host: localhost:8010
+info:
+  contact:
+    email: piotr@beesoft.pl
+  title: mend microservice example
+  version: "1.0"
+paths: {}
+swagger: "2.0"

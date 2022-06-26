@@ -7,7 +7,9 @@ import (
 	"mend/db/tp"
 )
 
-type memoryTable struct {
+// MemoryTable data container (table).
+// Component of InMemory
+type MemoryTable struct {
 	sync.Mutex
 	data  *list.List
 	index map[tp.ID]*list.Element
@@ -15,14 +17,14 @@ type memoryTable struct {
 }
 
 // NewTable creates new instance of memory-table.
-func NewTable() *memoryTable {
-	return &memoryTable{
+func NewTable() *MemoryTable {
+	return &MemoryTable{
 		data:  list.New(),
 		index: make(map[tp.ID]*list.Element),
 	}
 }
 
-func (t *memoryTable) reset() {
+func (t *MemoryTable) reset() {
 	t.Lock()
 	defer t.Unlock()
 
@@ -30,7 +32,7 @@ func (t *memoryTable) reset() {
 	t.index = make(map[tp.ID]*list.Element)
 }
 
-func (t *memoryTable) getAll() []tp.Row {
+func (t *MemoryTable) getAll() []tp.Row {
 	t.Lock()
 	defer t.Unlock()
 
@@ -41,7 +43,7 @@ func (t *memoryTable) getAll() []tp.Row {
 	return data
 }
 
-func (t *memoryTable) getWithID(id tp.ID) (tp.Row, error) {
+func (t *MemoryTable) getWithID(id tp.ID) (tp.Row, error) {
 	t.Lock()
 	defer t.Unlock()
 
@@ -52,7 +54,7 @@ func (t *memoryTable) getWithID(id tp.ID) (tp.Row, error) {
 	return element.Value.(tp.Row), nil
 }
 
-func (t *memoryTable) add(data tp.Row) tp.ID {
+func (t *MemoryTable) add(data tp.Row) tp.ID {
 	idx := tp.ID(len(t.index) + 1)
 	data["id"] = idx
 
@@ -65,7 +67,7 @@ func (t *memoryTable) add(data tp.Row) tp.ID {
 	return idx
 }
 
-func (t *memoryTable) update(data tp.Row) error {
+func (t *MemoryTable) update(data tp.Row) error {
 	if id, ok := data["id"]; ok {
 		if idv, ok := id.(tp.ID); ok {
 			t.Lock()
@@ -81,7 +83,7 @@ func (t *memoryTable) update(data tp.Row) error {
 	return tp.ErrInvalidRowData
 }
 
-func (t *memoryTable) delete(id tp.ID) error {
+func (t *MemoryTable) delete(id tp.ID) error {
 	t.Lock()
 	defer t.Unlock()
 
@@ -96,7 +98,7 @@ func (t *memoryTable) delete(id tp.ID) error {
 	return nil
 }
 
-func (t *memoryTable) count() int64 {
+func (t *MemoryTable) count() int64 {
 	t.Lock()
 	defer t.Unlock()
 

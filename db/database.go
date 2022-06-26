@@ -9,10 +9,12 @@ import (
 )
 
 const (
-	_ tp.DatabasEngine = iota
+	_ tp.DatabaseEngine = iota
+	// InMemory database in memory
 	InMemory
 )
 
+// Engine all databases implementations must conform to Engine
 type Engine interface {
 	GetAll(tp.TableName) ([]tp.Row, error)
 	GetWithID(tp.TableName, tp.ID) (tp.Row, error)
@@ -26,12 +28,12 @@ type Engine interface {
 var (
 	instance Engine
 	once     sync.Once
-	dbEngine tp.DatabasEngine
+	dbEngine tp.DatabaseEngine
 )
 
 // Use user can select db engine (if implemented).
 // This function must be call befor first call to db.
-func Use(engine tp.DatabasEngine) {
+func Use(engine tp.DatabaseEngine) {
 	switch engine {
 	case InMemory:
 		dbEngine = engine
@@ -40,12 +42,16 @@ func Use(engine tp.DatabasEngine) {
 	}
 }
 
+// Db returns used current database conform to Engine.
+// This implements database as signleton, is created
+// only on first call.
 func Db() Engine {
 	once.Do(func() {
 		switch dbEngine {
 		case InMemory:
 			instance = memo.NewInMemory()
 		default:
+			// no database - nothing to do
 			log.Fatal("db engine not selected")
 		}
 	})

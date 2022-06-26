@@ -9,19 +9,20 @@ import (
 // InMemory constains tables with data.
 // Must conform to the tp.Engine interface.
 type InMemory struct {
-	tables map[tp.TableName]*memoryTable
+	tables map[tp.TableName]*MemoryTable
 }
 
 // NewInMemory return instance od in-memory 'tp..
 // It implementet as singleton: object is created only on first call.
 func NewInMemory() *InMemory {
 	return &InMemory{
-		tables: map[tp.TableName]*memoryTable{
+		tables: map[tp.TableName]*MemoryTable{
 			"user": NewTable(),
 		},
 	}
 }
 
+// Count returns number of rows in table.
 func (m *InMemory) Count(tblName tp.TableName) int64 {
 	if table, ok := m.tables[tblName]; ok {
 		return table.count()
@@ -71,6 +72,7 @@ func (m *InMemory) Delete(tblName tp.TableName, id tp.ID) error {
 	return fmt.Errorf("table '%s' not found", tblName)
 }
 
+// Reset clears database (all existed row are removed).
 func (m *InMemory) Reset() {
 	if table, ok := m.tables["user"]; ok {
 		table.reset()

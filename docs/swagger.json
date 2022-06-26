@@ -1,0 +1,12 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "mend microservice example",
+        "contact": {
+            "email": "piotr@beesoft.pl"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8010",
+    "paths": {}
+}

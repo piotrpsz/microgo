@@ -14,6 +14,7 @@ COPY *.go ./
 COPY db/*go ./db/
 COPY db/memo/*.go ./db/memo/
 COPY db/tp/*.go ./db/tp/
+COPY docs/*.* ./docs/
 
 COPY middleware/*.go ./middleware/
 COPY routes/*.go ./routes/

@@ -31,19 +31,20 @@ Creation command:
 `openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout cert/localhost.key -out cert/localhost.crt`  
 
 
-# Swagger - How to check available API
-You can see available API using swagger. The app is prepared for this salution.  
-Firstly you must install swagger. I explain how do it, only for persons which have installed Go.
+# Docker - how to use mend as docker container
+Firstly you must install docker on your computer.  
 
-## Install current version from source
-We downloads the original code:  
-`git clone https://github.com/go-swagger/go-swagger`  
-`cd go-swagger/cmd/swagger`  
-`go build swagger.go`  
-`cp swagger $GOPATH/bin`  
+## Create container  
+Go to root diectory of the project and:  
+`docker build --tag mend .`
 
-When finished go to the root directory of the project and:  
-`Projects/Go/mend % swagger generate spec -o ./swagger.json`  
-`swagger serve ./swagger.json`  
+## Start mend as container
+When all was OK:  
+`docker run -p 8010:8010 mend`
 
-
+## Check   
+Run 'Postman', select GET command with address 'https://localhost:8010/user/count'.
+As result you should see:  
+`{
+    "count": 0
+}`

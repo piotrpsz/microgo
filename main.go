@@ -26,12 +26,25 @@ import (
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"
 	"mend/db"
+	"mend/docs"
 	"mend/middleware"
 	"mend/routes"
 	"mend/src"
 )
 
+// @title mend microservice example
+// @version 1.0
+// @host localhost:8010
+// @contact.email piotr@beesoft.pl
 func main() {
+	// Swagger 2.0 Meta Information
+	docs.SwaggerInfo.Title = "mend"
+	docs.SwaggerInfo.Description = "Aplikacja kontentowa"
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = "localhost:8010"
+	docs.SwaggerInfo.BasePath = "/"
+	docs.SwaggerInfo.Schemes = []string{"https"}
+
 	db.Use(db.InMemory)
 
 	if src.Config().Gin.ReleaseMode {
