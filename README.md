@@ -2,7 +2,21 @@
 
 The program is example of microservice in Go with using Gin framework.  
 The server accept only **TLS** connection (self-signed certificate).  
-You can use **REST**-api to check how works all **CRUD** elements (Create-Read-Update-Delete).
+You can use **REST**-api to check how works all **CRUD** elements (Create-Read-Update-Delete).  
+
+Databasse handles data in format (user database):  
+{  
+"id" : 0,  
+"first_name": "Albert",  
+"last_name": "Einstein",       
+"age": 100      
+}
+
+## Expamples of valid requests:
+
+GET `https://xxx.xxx.xxx.xxx:8010/user` // get all user  
+GET `https://xxx.xxx.xxx.xxx:8010/user/123` // get user with id 123
+
 
 # External dependencies
 - [gin] go get -u github.com/gin-gonic/gin
