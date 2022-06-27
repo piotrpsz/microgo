@@ -21,6 +21,7 @@ GET `https://xxx.xxx.xxx.xxx:8010/user/123` // get user with id 123
 # External dependencies
 - [gin] go get -u github.com/gin-gonic/gin
 - [logrus] go get -u github.com/sirupsen/logrus
+- [testify] go get -u github.com/stretchr/testify/assert
 
 # Prepare enviromment
 Here are few information how to prepare local emvironment befor start microservice.
