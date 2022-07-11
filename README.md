@@ -1,4 +1,4 @@
-# mend
+# microgo
 
 The program is example of microservice in Go with using Gin framework.  
 The server accept only **TLS** connection (self-signed certificate).  
